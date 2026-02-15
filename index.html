@@ -3,39 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LAZER LOUNGE</title>
+<title>LAZER LOUNGE | Elite Esports</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
 body{
     font-family:'Orbitron',sans-serif;
-    background:#0f0f1b;
+    background:#04040c;
     color:white;
+    overflow-x:hidden;
+}
+
+/* INTRO SCREEN */
+#intro{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:#04040c;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:3rem;
+    letter-spacing:6px;
+    z-index:9999;
+    animation:introFade 1s ease 3s forwards;
+}
+@keyframes introFade{
+    to{opacity:0;visibility:hidden;}
+}
+
+/* PARTICLES */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
 }
 
 /* NAVBAR */
 nav{
     position:fixed;
     width:100%;
-    padding:20px 50px;
+    padding:20px 60px;
     display:flex;
     justify-content:space-between;
-    background:rgba(0,0,0,0.8);
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(15px);
     z-index:1000;
 }
 
 nav a{
     color:white;
     text-decoration:none;
-    margin-left:25px;
+    margin-left:30px;
     transition:0.3s;
 }
-
 nav a:hover{
     color:#00f2ff;
+    text-shadow:0 0 10px #00f2ff;
 }
 
 /* HERO */
@@ -46,194 +73,240 @@ nav a:hover{
     justify-content:center;
     align-items:center;
     text-align:center;
-    background:radial-gradient(circle,#1a1a3a,#0f0f1b);
 }
-
 .hero h1{
-    font-size:3rem;
-    margin-bottom:20px;
-}
-
-.btn{
-    padding:15px 40px;
+    font-size:4.5rem;
     background:linear-gradient(90deg,#00f2ff,#ff00c8);
-    border-radius:30px;
-    text-decoration:none;
+    -webkit-background-clip:text;
+    color:transparent;
+}
+.hero p{
+    margin:20px 0;
+    opacity:0.7;
+}
+.btn{
+    padding:18px 50px;
+    border-radius:50px;
+    background:linear-gradient(90deg,#00f2ff,#ff00c8);
     color:white;
-    font-weight:bold;
+    text-decoration:none;
     transition:0.3s;
 }
-
 .btn:hover{
     transform:scale(1.1);
-    box-shadow:0 0 20px #ff00c8;
+    box-shadow:0 0 30px #ff00c8;
 }
 
-/* SECTION STYLING */
+/* SECTIONS */
 section{
-    padding:100px 50px;
+    padding:120px 60px;
     text-align:center;
 }
-
 h2{
-    margin-bottom:50px;
+    font-size:2.5rem;
+    margin-bottom:60px;
 }
 
-/* CARD SYSTEM */
+/* CARDS */
 .card-container{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:30px;
+    gap:40px;
 }
-
 .card{
-    background:#1c1c2e;
     width:300px;
-    border-radius:15px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
     overflow:hidden;
-    transition:0.3s;
+    transform:translateY(50px);
+    opacity:0;
+    transition:0.6s ease;
 }
-
+.card.show{
+    transform:translateY(0);
+    opacity:1;
+}
 .card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 0 20px #00f2ff;
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:0 0 30px #00f2ff66;
 }
-
 .card img{
     width:100%;
-    height:180px;
+    height:200px;
     object-fit:contain;
     background:white;
-    padding:20px;
+    padding:30px;
 }
-
 .card .content{
-    padding:20px;
+    padding:25px;
 }
-
 .card a{
+    display:block;
+    margin:6px 0;
     color:#00f2ff;
     text-decoration:none;
-    font-weight:bold;
 }
-
 .card a:hover{
     color:#ff00c8;
 }
 
+/* STATS */
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:80px;
+    flex-wrap:wrap;
+}
+.stat{
+    font-size:2rem;
+}
+
 /* FOOTER */
 footer{
+    padding:40px;
     text-align:center;
-    padding:30px;
-    background:#0a0a15;
+    background:#020206;
+    opacity:0.6;
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<div id="intro">LAZER LOUNGE ⚡</div>
+<canvas id="particles"></canvas>
+
 <nav>
-    <div>LAZER LOUNGE ⚡</div>
+    <div style="font-weight:900;">LAZER LOUNGE ⚡</div>
     <div>
         <a href="#">Home</a>
         <a href="#games">Games</a>
-        <a href="#rankings">Rankings</a>
+        <a href="#team">Team</a>
+        <a href="#blogs">Blogs</a>
+        <a href="#sponsors">Sponsors</a>
         <a href="https://discord.gg/YOURINVITECODE" target="_blank">Discord</a>
     </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
     <h1>ENTER THE ARENA</h1>
+    <p>Elite Competitive Gaming Organization</p>
     <a href="https://discord.gg/YOURINVITECODE" target="_blank" class="btn">
         Join The Discord
     </a>
 </section>
 
-<!-- GAMES SECTION -->
-<section id="games">
-    <h2>🎮 Our Competitive Games</h2>
-
-    <div class="card-container">
-
-        <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png" alt="Minecraft">
-            <div class="content">
-                <h3>Minecraft</h3>
-                <p>PvP battles, tournaments and survival competitions.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Roblox_Logo_2022.svg" alt="Roblox">
-            <div class="content">
-                <h3>Roblox</h3>
-                <p>Competitive modes, challenges and community events.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Question_mark.svg" alt="Coming Soon">
-            <div class="content">
-                <h3>More Coming Soon</h3>
-                <p>We’re expanding into new esports titles.</p>
-            </div>
-        </div>
-
+<section>
+    <div class="stats">
+        <div class="stat"><h3>5K+</h3><p>Members</p></div>
+        <div class="stat"><h3>120+</h3><p>Tournaments</p></div>
+        <div class="stat"><h3>50+</h3><p>Pro Players</p></div>
     </div>
 </section>
 
-<!-- RANKINGS SECTION -->
-<section id="rankings">
-    <h2>🔥 Top Players & Creators</h2>
-
+<section id="games">
+    <h2>🎮 Competitive Titles</h2>
     <div class="card-container">
-
         <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+            <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png">
+            <div class="content"><h3>Minecraft</h3><p>PvP Championships</p></div>
+        </div>
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Roblox_Logo_2022.svg">
+            <div class="content"><h3>Roblox</h3><p>Competitive Leagues</p></div>
+        </div>
+    </div>
+</section>
+
+<section id="team">
+    <h2>🏆 Pro Team</h2>
+    <div class="card-container">
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png">
+            <div class="content"><h3>Captain</h3><p>Minecraft Division</p></div>
+        </div>
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Roblox_Logo_2022.svg">
+            <div class="content"><h3>Elite Player</h3><p>Roblox Division</p></div>
+        </div>
+    </div>
+</section>
+
+<section id="blogs">
+    <h2>🔥 Top Creators</h2>
+    <div class="card-container">
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg">
             <div class="content">
-                <h3>🥇 Top Minecraft PvPers</h3>
-                <p>
-                    <a href="https://www.youtube.com/@Technoblade" target="_blank">Technoblade</a><br><br>
-                    <a href="https://www.youtube.com/@Dream" target="_blank">Dream</a><br><br>
-                    <a href="https://www.youtube.com/@xNestorio" target="_blank">xNestorio</a>
-                </p>
+                <h3>Minecraft</h3>
+                <a href="https://www.youtube.com/@Dream" target="_blank">Dream</a>
+                <a href="https://www.youtube.com/@DanTDM" target="_blank">DanTDM</a>
             </div>
         </div>
-
         <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg">
             <div class="content">
-                <h3>🎥 Top Minecraft YouTubers</h3>
-                <p>
-                    <a href="https://www.youtube.com/@DanTDM" target="_blank">DanTDM</a><br><br>
-                    <a href="https://www.youtube.com/@Aphmau" target="_blank">Aphmau</a><br><br>
-                    <a href="https://www.youtube.com/@MumboJumbo" target="_blank">Mumbo Jumbo</a>
-                </p>
+                <h3>Roblox</h3>
+                <a href="https://www.youtube.com/@KreekCraft" target="_blank">KreekCraft</a>
+                <a href="https://www.youtube.com/@Flamingo" target="_blank">Flamingo</a>
             </div>
         </div>
+    </div>
+</section>
 
+<section id="sponsors">
+    <h2>🤝 Sponsors</h2>
+    <div class="card-container">
         <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
-            <div class="content">
-                <h3>🤖 Top Roblox YouTubers</h3>
-                <p>
-                    <a href="https://www.youtube.com/@KreekCraft" target="_blank">KreekCraft</a><br><br>
-                    <a href="https://www.youtube.com/@Flamingo" target="_blank">Flamingo</a><br><br>
-                    <a href="https://www.youtube.com/@LankyBox" target="_blank">LankyBox</a>
-                </p>
-            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Discord_logo.svg">
+            <div class="content"><h3>Official Community Partner</h3></div>
         </div>
-
     </div>
 </section>
 
 <footer>
-© 2026 LAZER LOUNGE | Esports Community
+© 2026 LAZER LOUNGE | Elite Esports Organization
 </footer>
+
+<script>
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
+for(let i=0;i<100;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,size:Math.random()*2,speedX:(Math.random()-0.5),speedY:(Math.random()-0.5)});
+}
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#00f2ff";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fill();
+p.x+=p.speedX;
+p.y+=p.speedY;
+if(p.x<0||p.x>canvas.width) p.speedX*=-1;
+if(p.y<0||p.y>canvas.height) p.speedY*=-1;
+});
+requestAnimationFrame(animate);
+}
+animate();
+
+/* SCROLL REVEAL */
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{
+cards.forEach(card=>{
+if(card.getBoundingClientRect().top<window.innerHeight-100){
+card.classList.add('show');
+}
+});
+});
+</script>
 
 </body>
 </html>
-
